@@ -10,7 +10,7 @@
     "express": "^4.21.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.15",
-    "formidable": "^3.5.1"
+    "busboy": "^1.6.0"
   }
 }
 

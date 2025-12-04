@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
-const formidable = require('formidable');
-const { Readable } = require('stream');
+const busboy = require('busboy');
 
 // SMTP / email configuration
 const transporter = nodemailer.createTransport({
@@ -75,39 +74,59 @@ const serviceMeta = {
 
 function parseFormData(req) {
   return new Promise((resolve, reject) => {
-    const form = formidable({
-      multiples: true,
-      keepExtensions: true,
-      maxFileSize: 10 * 1024 * 1024, // 10MB max file size
-      allowEmptyFiles: false
-    });
+    const fields = {};
+    const files = [];
+    const bb = busboy({ headers: req.headers });
 
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        console.error('Form parsing error:', err);
-        reject(err);
+    bb.on('field', (name, value) => {
+      if (fields[name]) {
+        if (Array.isArray(fields[name])) {
+          fields[name].push(value);
+        } else {
+          fields[name] = [fields[name], value];
+        }
       } else {
-        resolve({ fields, files });
+        fields[name] = value;
       }
     });
-  });
-}
 
-async function bufferFromFile(file) {
-  if (file.buffer) {
-    return file.buffer;
-  }
-  if (file.filepath) {
-    const fs = require('fs').promises;
-    return await fs.readFile(file.filepath);
-  }
-  // If file is already a buffer or stream
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    const stream = file instanceof Readable ? file : Readable.from(file);
-    stream.on('data', chunk => chunks.push(chunk));
-    stream.on('end', () => resolve(Buffer.concat(chunks)));
-    stream.on('error', reject);
+    bb.on('file', (name, file, info) => {
+      const { filename, encoding, mimeType } = info;
+      const chunks = [];
+      
+      file.on('data', (chunk) => {
+        chunks.push(chunk);
+      });
+
+      file.on('end', () => {
+        files.push({
+          fieldname: name,
+          originalname: filename,
+          encoding,
+          mimetype: mimeType,
+          buffer: Buffer.concat(chunks),
+          size: Buffer.concat(chunks).length
+        });
+      });
+    });
+
+    bb.on('error', (err) => {
+      reject(err);
+    });
+
+    bb.on('finish', () => {
+      // Group files by fieldname
+      const filesByField = {};
+      files.forEach(file => {
+        if (!filesByField[file.fieldname]) {
+          filesByField[file.fieldname] = [];
+        }
+        filesByField[file.fieldname].push(file);
+      });
+      resolve({ fields, files: filesByField });
+    });
+
+    req.pipe(bb);
   });
 }
 
@@ -275,14 +294,13 @@ module.exports = async (req, res) => {
     // Handle file attachments
     const attachments = [];
     const cvFiles = files['leaderCV[]'] || files.leaderCV || [];
-    const fileArray = Array.isArray(cvFiles) ? cvFiles : [cvFiles];
+    const fileArray = Array.isArray(cvFiles) ? cvFiles : (cvFiles ? [cvFiles] : []);
 
     for (const file of fileArray) {
-      if (file && file.size > 0) {
-        const buffer = await bufferFromFile(file);
+      if (file && file.buffer && file.size > 0) {
         attachments.push({
-          filename: file.originalFilename || file.name || 'cv.pdf',
-          content: buffer
+          filename: file.originalname || 'cv.pdf',
+          content: file.buffer
         });
       }
     }
