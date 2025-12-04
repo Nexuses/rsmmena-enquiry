@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSM MENA | Cyber Security Capability Assessment</title>
+    <style>
+        :root {
+            --rsm-blue: #005C94; /* Primary Corporate Blue */
+            --rsm-light-blue: #00A3E0; /* Accent Cyan/Blue */
+            --rsm-dark: #333333;
+            --rsm-gray: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--rsm-gray);
+            color: var(--rsm-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            border-bottom: 4px solid var(--rsm-blue);
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--rsm-blue);
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #009BDD;
+            color: var(--white);
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Form Container */
+        .form-wrapper {
+            background-color: var(--white);
+            margin: -30px auto 50px auto; /* Overlap hero */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Form Elements */
+        h2 {
+            color: #11A537;
+            border-bottom: 2px solid var(--rsm-gray);
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #11A537;
+        }
+
+        .section-intro {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], 
+        input[type="email"], 
+        select, 
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Checkbox Grid */
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid var(--rsm-light-blue);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .checkbox-item input {
+            margin-right: 12px;
+            margin-top: 5px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-content strong {
+            display: block;
+            color: #333;
+        }
+
+        .checkbox-content span {
+            font-size: 0.85rem;
+            color: #666;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Leadership Section */
+        .leader-card {
+            background-color: #f0f7fb;
+            border: 1px solid #d0e3f0;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .leader-card h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: var(--rsm-blue);
+        }
+
+        .btn-add {
+            background-color: transparent;
+            border: 2px dashed var(--rsm-blue);
+            color: var(--rsm-blue);
+            padding: 10px 20px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background-color: #f0f7fb;
+        }
+
+        .btn-submit {
+            background-color: #11A537;
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0d8a2b;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .hidden { display: none; }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .form-wrapper { padding: 20px; }
+            .capability-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container logo-area">
+        <div class="logo-text">
+            <img src="https://22527425.fs1.hubspotusercontent-na2.net/hubfs/22527425/MARS/RSM%20Academy%20Logo.svg" alt="RSM Academy Logo" style="height:55px;">
+        </div>
+        <div class="tagline">The Power of Being Understood</div>
+    </div>
+</header>
+
+<div class="hero">
+    <div class="container">
+        <h1>RSM MENA Cyber Security Capability Map</h1>
+        <p>Unifying our strengths to deliver the 360° Cyber Security Approach across the region.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-wrapper">
+        <p class="section-intro">
+            This survey maps the specific capabilities available within each RSM MENA member firm. 
+            The data will be used to route leads to the correct office and identify cross-border collaboration opportunities[cite: 5, 7].
+        </p>
+
+        <form id="capabilityForm" action="/submit" method="POST" enctype="multipart/form-data">
+            <h2>1. Member Firm Identification</h2>
+            <div class="form-group">
+                <label for="country">RSM Member Firm / Country</label>
+                <select id="country" name="country" required>
+                    <option value="" disabled selected>Select your location</option>
+                    <option value="Mauritania">Mauritania</option>
+                    <option value="Chad">Chad</option>
+                    <option value="Iraq">Iraq</option>
+                    <option value="Senegal">Senegal</option>
+                    <option value="Tunisia">Tunisia</option>
+                    <option value="Bahrain">Bahrain</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Oman">Oman</option>
+                    <option value="Palestine">Palestine</option>
+                    <option value="Morocco">Morocco</option>
+                    <option value="Kuwait">Kuwait</option>
+                    <option value="UAE">UAE</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contactName">Primary Cyber Security Lead</label>
+                <input type="text" id="contactName" name="contactName" placeholder="Partner or Director Name" required>
+            </div>
+            <div class="form-group">
+                <label for="contactEmail">Contact Email</label>
+                <input type="email" id="contactEmail" name="contactEmail" placeholder="name@rsm.ae" required>
+            </div>
+
+            <h2>2. Service Capabilities</h2>
+            <p class="section-intro">Select only the services your local office can deliver independently.</p>
+
+            <h3>Strategic Advisory & GRC [cite: 42, 60, 45]</h3>
+            <div class="capability-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="vCISO">
+                    <div class="checkbox-content">
+                        <strong>vCISO Services</strong>
+                        <span>Cyber defence strategy, policy, architecture & org planning.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="MaturityAssessment">
+                    <div class="checkbox-content">
+                        <strong>Maturity Assessment (NIST)</strong>
+                        <span>Scoring maturity based on NIST framework & People/Controls readiness.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="GRC">
+                    <div class="checkbox-content">
+                        <strong>GRC Automation & Assessment</strong>
+                        <span>Compliance (ISO, COSO, SOX, Central Bank) & ITGC/Enterprise Risk.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="DigitalFootprint">
+                    <div class="checkbox-content">
+                        <strong>Digital Footprint Mapping</strong>
+                        <span>Analysis of external exposure and brand sentiment.</span>
+                    </div>
+                </label>
+            </div>
+
+            <h3>Offensive Security & VAPT [cite: 40, 64, 65]</h3>
+            <div class="capability-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="VAPT">
+                    <div class="checkbox-content">
+                        <strong>Vulnerability Assessment (VAPT)</strong>
+                        <span>Blackbox/Greybox/Whitebox (Outside-in & Inside-out).</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="RedTeaming">
+                    <div class="checkbox-content">
+                        <strong>Red Teaming</strong>
+                        <span>Adversary simulation to test detection/response.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="DevSecOps">
+                    <div class="checkbox-content">
+                        <strong>DevSecOps / Security as Code</strong>
+                        <span>Securing the SDLC and Cloud Applications.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="BAS">
+                    <div class="checkbox-content">
+                        <strong>Breach & Attack Simulation</strong>
+                        <span>Lab-based continuous validation of controls.</span>
+                    </div>
+                </label>
+            </div>
+
+            <h3>Managed Services & Response [cite: 38, 54, 63]</h3>
+            <div class="capability-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="SOC">
+                    <div class="checkbox-content">
+                        <strong>SOC as a Service</strong>
+                        <span>24x7 Monitoring, Incident Management (Captive or Managed).</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="ThreatIntel">
+                    <div class="checkbox-content">
+                        <strong>Threat Monitoring</strong>
+                        <span>Dark web monitoring & threat intelligence.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="IncidentResponse">
+                    <div class="checkbox-content">
+                        <strong>Incident Response & Forensics</strong>
+                        <span>Root cause analysis, kill-chain reconstruction (e.g. Ransomware/DDoS).</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="OTSecurity">
+                    <div class="checkbox-content">
+                        <strong>OT Security [cite: 72]</strong>
+                        <span>Assessments for Operational Technology & Industrial Control Systems.</span>
+                    </div>
+                </label>
+            </div>
+
+            <h3>Training & Resilience [cite: 44, 86]</h3>
+            <div class="capability-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="CyberDrills">
+                    <div class="checkbox-content">
+                        <strong>Cyber Drills / Table-Top</strong>
+                        <span>Workshops for IT/Non-IT Executives.</span>
+                    </div>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="services" value="Training">
+                    <div class="checkbox-content">
+                        <strong>Skill Assurance Programs</strong>
+                        <span>Lab-based training (B2B/B2C) & Onboarding programs.</span>
+                    </div>
+                </label>
+            </div>
+
+            <h2>3. Niche & Unique Capabilities</h2>
+            <div class="form-group">
+                <label for="niche">Is there a specific area not listed above where your firm excels?</label>
+                <p class="section-intro">E.g., Specific local regulations (PDPL, SAMA), specific industries (Oil & Gas), or proprietary tools.</p>
+                <textarea id="niche" name="niche" rows="4" placeholder="Describe any unique capabilities..."></textarea>
+            </div>
+
+            <h2>4. Leadership & Expertise Profile</h2>
+            <p class="section-intro">Please profile the Partners/Directors who lead these services. We will use this to build a regional expert directory.</p>
+            
+            <div id="leaders-container">
+                <div class="leader-card">
+                    <h3>Leader Profile 1</h3>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="leaderName[]" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <input type="text" name="leaderRole[]" placeholder="e.g. Partner, Director" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Primary Technical Expertise</label>
+                        <input type="text" name="leaderSkill[]" placeholder="e.g. Forensics, Banking GRC" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload CV (PDF)</label>
+                        <input type="file" name="leaderCV[]" accept=".pdf,.doc,.docx">
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-add" id="addLeaderBtn">+ Add Another Leader</button>
+
+            <button type="submit" class="btn-submit">Submit Capability Assessment</button>
+
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 RSM International Association. All rights reserved.</p>
+        <p>RSM is the brand used by a network of independent accounting and consulting firms[cite: 151].</p>
+    </div>
+</footer>
+
+<script>
+    // Logic to add dynamic Leader fields
+    document.getElementById('addLeaderBtn').addEventListener('click', function() {
+        const container = document.getElementById('leaders-container');
+        const count = container.children.length + 1;
+        
+        const newCard = document.createElement('div');
+        newCard.classList.add('leader-card');
+        newCard.innerHTML = `
+            <h3>Leader Profile ${count}</h3>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="leaderName[]">
+            </div>
+            <div class="form-group">
+                <label>Designation</label>
+                <input type="text" name="leaderRole[]" placeholder="e.g. Partner, Director">
+            </div>
+            <div class="form-group">
+                <label>Primary Technical Expertise</label>
+                <input type="text" name="leaderSkill[]" placeholder="e.g. Forensics, Banking GRC">
+            </div>
+            <div class="form-group">
+                <label>Upload CV (PDF)</label>
+                <input type="file" name="leaderCV[]" accept=".pdf,.doc,.docx">
+            </div>
+        `;
+        container.appendChild(newCard);
+    });
+</script>
+
+</body>
+</html>
