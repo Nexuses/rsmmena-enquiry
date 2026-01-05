@@ -1,0 +1,15 @@
+{
+  "name": "rsm-mena-enquiry",
+  "version": "1.0.0",
+  "description": "RSM MENA Cyber Security Capability Map form email sender",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^7.0.12"
+  }
+}
